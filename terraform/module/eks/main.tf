@@ -90,7 +90,7 @@ locals {
 #######################################################################
 data "aws_vpc" "main" {
   tags = {
-    Name = "y0-vpc"
+    Name = "AI-OS-vpc"
   }
 }
 data "aws_subnets" "private" {
