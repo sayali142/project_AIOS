@@ -33,8 +33,9 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-${count.index}"
-    Type = "public"
+    Name                     = "public-subnet-${count.index}"
+    Type                     = "public"
+    "kubernetes.io/role/elb" = "1"
   }
 }
 
@@ -48,8 +49,10 @@ resource "aws_subnet" "private" {
   availability_zone = var.azs[count.index]
 
   tags = {
-    Name = "private-subnet-${count.index}"
-    Type = "private"
+    Name                              = "private-subnet-${count.index}"
+    Type                              = "private"
+    "kubernetes.io/role/internal-elb" = "1"
+    "karpenter.sh/discovery"          = "Y0-Dev-eks"
   }
 }
 
@@ -57,6 +60,8 @@ resource "aws_subnet" "private" {
 # NAT Gateway
 # ----------------------------
 resource "aws_eip" "nat_eip" {
+  domain = "vpc"
+
   tags = {
     Name = "nat-eip"
   }
