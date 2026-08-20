@@ -31,7 +31,7 @@ terraform {
 # Providers
 #######################################################################
 provider "aws" {
-  region = local.region
+  region = "ap-south-1"
 }
 # Data source to get cluster info after it's created
 data "aws_eks_cluster" "cluster" {
